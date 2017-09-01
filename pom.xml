@@ -46,10 +46,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -62,7 +62,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -79,14 +78,75 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.katharsis/katharsis-core -->
+		<dependency>
+		    <groupId>io.katharsis</groupId>
+		    <artifactId>katharsis-spring</artifactId>
+		    <version>3.0.2</version>
+		</dependency>		
+	    <dependency>
+	      <groupId>org.reflections</groupId>
+	      <artifactId>reflections</artifactId>
+	      <version>0.9.10</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>commons-io</groupId>
+	      <artifactId>commons-io</artifactId>
+	      <version>2.4</version>
+	    </dependency>
+		<dependency>
+		    <groupId>com.jayway.restassured</groupId>
+		    <artifactId>rest-assured</artifactId>
+		    <version>2.9.0</version>
+		    <scope>test</scope>
+    	</dependency>
+    	<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+    	<dependency>
+	      <groupId>org.springframework.restdocs</groupId>
+	      <artifactId>spring-restdocs-restassured</artifactId>
+	      <version>1.1.2.RELEASE</version>
+	      <scope>test</scope>
+    	</dependency>
+    	 <dependency>
+		     <groupId>org.powermock</groupId>
+		     <artifactId>powermock-module-junit4</artifactId>
+		     <version>1.6.5</version>
+		     <scope>test</scope>
+		     <exclusions>
+				<exclusion>
+				  <artifactId>junit</artifactId>
+				  <groupId>junit</groupId>
+				</exclusion>
+      		</exclusions>
+    	</dependency>
+	    <dependency>
+	      <groupId>org.powermock</groupId>
+	      <artifactId>powermock-api-mockito</artifactId>
+	      <version>1.6.5</version>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+		    <groupId>org.powermock</groupId>
+		    <artifactId>powermock-api-mockito-common</artifactId>     
+		    <version>1.6.5</version>
+		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.5.3</version>
 			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -103,11 +163,63 @@
 	</dependencyManagement>
 
 	<build>
+		<testResources>
+	      <testResource>
+		<directory>src/test/resources</directory>
+		<filtering>true</filtering>
+	      </testResource>
+	    </testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		        <groupId>org.asciidoctor</groupId>
+		        <artifactId>asciidoctor-maven-plugin</artifactId>
+		        <version>1.5.3</version>
+		        <executions>
+		          <execution>
+		            <id>generate-docs</id>
+		            <phase>prepare-package</phase>
+		            <goals>
+		              <goal>process-asciidoc</goal>
+		            </goals>
+		            <configuration>
+		              <backend>html</backend>
+		              <doctype>book</doctype>
+		                <attributes>
+		                  <snippets>${project.build.directory}/generated-snippets</snippets>
+		                </attributes>
+		            </configuration>
+		          </execution>
+		        </executions>
+	      </plugin>
+	      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-resources-plugin</artifactId>
+			  <version>2.6</version>
+			  <configuration>
+			    <encoding>UTF-8</encoding>
+			  </configuration>
+		          <executions>
+		            <execution>
+		              <id>copy-resources</id>
+		              <phase>prepare-package</phase>
+		              <goals>
+		                <goal>copy-resources</goal>
+		              </goals>
+		              <configuration>
+		                <outputDirectory>${project.build.outputDirectory}/static/docs</outputDirectory>
+		                <resources>
+		                  <resource>
+		                    <directory>${project.build.directory}/generated-docs</directory>
+		                  </resource>
+		                </resources>
+		              </configuration>
+		            </execution>
+		          </executions>
+		</plugin>
 		</plugins>
 	</build>
 

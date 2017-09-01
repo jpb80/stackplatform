@@ -26,4 +26,24 @@ public class UserProfileEntity extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
 	private TeamEntity team;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public TeamEntity getTeam() {
+		return team;
+	}
+
+	public void setTeam(TeamEntity team) {
+		this.team = team;
+	}
+
+	public Long getId() {
+		return id;
+	}
 }

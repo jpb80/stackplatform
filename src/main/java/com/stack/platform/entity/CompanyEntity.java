@@ -29,4 +29,20 @@ public class CompanyEntity {
 	@OneToMany
 	@JoinColumn(name = "id", insertable = false, updatable = false, referencedColumnName = "teamid", nullable = false)
 	private Set<TeamEntity> companyTeams = new HashSet<TeamEntity>();
+
+	public long getTeamid() {
+		return teamid;
+	}
+
+	public void setTeamid(long teamid) {
+		this.teamid = teamid;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Set<TeamEntity> getCompanyTeams() {
+		return companyTeams;
+	}
 }

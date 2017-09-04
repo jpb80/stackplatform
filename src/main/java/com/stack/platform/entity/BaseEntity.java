@@ -26,6 +26,34 @@ public class BaseEntity {
 	
 	@Version
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "version")
+	@Column(name = "version", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date version;
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+
+	public Date getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Date deleted) {
+		this.deleted = deleted;
+	}
+
+	public Date getVersion() {
+		return version;
+	}
 }

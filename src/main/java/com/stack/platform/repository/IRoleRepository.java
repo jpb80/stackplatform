@@ -8,5 +8,5 @@ public interface IRoleRepository extends Repository<Role, Long>  {
 
 	<S extends Role> S save(S roleEntity);
 	
-//	Role findOne(ID primaryKey);
+	Role findById(Long id);
 }

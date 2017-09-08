@@ -15,8 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "team")
+@Getter @Setter
+@ToString @EqualsAndHashCode(callSuper=true)
 public class TeamEntity extends BaseEntity {
 
 	@Id
@@ -44,43 +51,4 @@ public class TeamEntity extends BaseEntity {
 	@OneToMany(mappedBy="team")
 	private Set<UserProfileEntity> usersOnTeam = new HashSet<UserProfileEntity>();
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getTechstackid() {
-		return techstackid;
-	}
-
-	public void setTechstackid(Long techstackid) {
-		this.techstackid = techstackid;
-	}
-
-	public Long getCompanyid() {
-		return companyid;
-	}
-
-	public void setCompanyid(Long companyid) {
-		this.companyid = companyid;
-	}
-
-	public CompanyEntity getCompany() {
-		return company;
-	}
-
-	public void setCompany(CompanyEntity company) {
-		this.company = company;
-	}
-
-	public Set<TechStackEntity> getTeamTechStacks() {
-		return teamTechStacks;
-	}
-
-	public Set<UserProfileEntity> getUsersOnTeam() {
-		return usersOnTeam;
-	}
 }

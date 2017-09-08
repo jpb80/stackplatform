@@ -10,8 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "userprofile")
+@Getter @Setter
+@ToString @EqualsAndHashCode(callSuper=true)
 public class UserProfileEntity extends BaseEntity {
 
 	@Id
@@ -26,24 +33,4 @@ public class UserProfileEntity extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
 	private TeamEntity team;
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public TeamEntity getTeam() {
-		return team;
-	}
-
-	public void setTeam(TeamEntity team) {
-		this.team = team;
-	}
-
-	public Long getId() {
-		return id;
-	}
 }

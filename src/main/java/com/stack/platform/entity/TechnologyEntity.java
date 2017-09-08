@@ -12,8 +12,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "technology")
+@Getter @Setter
+@ToString @EqualsAndHashCode(callSuper=true)
 public class TechnologyEntity extends BaseEntity {
 
 	@Id
@@ -37,39 +44,4 @@ public class TechnologyEntity extends BaseEntity {
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
 	private TechStackEntity techstack;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Long getTechstackid() {
-		return techstackid;
-	}
-
-	public void setTechstackid(Long techstackid) {
-		this.techstackid = techstackid;
-	}
-
-	public TechStackEntity getTechstack() {
-		return techstack;
-	}
-
-	public void setTechstack(TechStackEntity techstack) {
-		this.techstack = techstack;
-	}
-
-	public Long getId() {
-		return id;
-	}
 }

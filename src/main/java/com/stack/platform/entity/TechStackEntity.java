@@ -12,8 +12,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "techstack")
+@Getter @Setter
+@ToString @EqualsAndHashCode(callSuper=true)
 public class TechStackEntity extends BaseEntity {
 
 	@Id
@@ -28,19 +35,4 @@ public class TechStackEntity extends BaseEntity {
 	@OneToMany(mappedBy="techstack")
 	private Set<TechnologyEntity> technologies = new HashSet<TechnologyEntity>();
 
-	public Long getTechid() {
-		return techid;
-	}
-
-	public void setTechid(Long techid) {
-		this.techid = techid;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Set<TechnologyEntity> getTechnologies() {
-		return technologies;
-	}
 }

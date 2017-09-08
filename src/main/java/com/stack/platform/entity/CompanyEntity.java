@@ -13,9 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "company")
-public class CompanyEntity {
+@Getter @Setter
+@ToString @EqualsAndHashCode(callSuper=true)
+public class CompanyEntity extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -30,19 +37,4 @@ public class CompanyEntity {
 	@JoinColumn(name = "id", insertable = false, updatable = false, referencedColumnName = "teamid", nullable = false)
 	private Set<TeamEntity> companyTeams = new HashSet<TeamEntity>();
 
-	public long getTeamid() {
-		return teamid;
-	}
-
-	public void setTeamid(long teamid) {
-		this.teamid = teamid;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Set<TeamEntity> getCompanyTeams() {
-		return companyTeams;
-	}
 }

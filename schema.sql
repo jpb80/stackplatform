@@ -1,0 +1,327 @@
+-- MySQL dump 10.13  Distrib 5.7.16, for osx10.12 (x86_64)
+--
+-- Host: localhost    Database: platform
+-- ------------------------------------------------------
+-- Server version	5.7.16
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `platform`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `platform` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `platform`;
+
+--
+-- Table structure for table `DATABASECHANGELOG`
+--
+
+DROP TABLE IF EXISTS `DATABASECHANGELOG`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `DATABASECHANGELOG` (
+  `ID` varchar(255) NOT NULL,
+  `AUTHOR` varchar(255) NOT NULL,
+  `FILENAME` varchar(255) NOT NULL,
+  `DATEEXECUTED` datetime NOT NULL,
+  `ORDEREXECUTED` int(11) NOT NULL,
+  `EXECTYPE` varchar(10) NOT NULL,
+  `MD5SUM` varchar(35) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `COMMENTS` varchar(255) DEFAULT NULL,
+  `TAG` varchar(255) DEFAULT NULL,
+  `LIQUIBASE` varchar(20) DEFAULT NULL,
+  `CONTEXTS` varchar(255) DEFAULT NULL,
+  `LABELS` varchar(255) DEFAULT NULL,
+  `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `DATABASECHANGELOG`
+--
+
+LOCK TABLES `DATABASECHANGELOG` WRITE;
+/*!40000 ALTER TABLE `DATABASECHANGELOG` DISABLE KEYS */;
+/*!40000 ALTER TABLE `DATABASECHANGELOG` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DATABASECHANGELOGLOCK`
+--
+
+DROP TABLE IF EXISTS `DATABASECHANGELOGLOCK`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `DATABASECHANGELOGLOCK` (
+  `ID` int(11) NOT NULL,
+  `LOCKED` bit(1) NOT NULL,
+  `LOCKGRANTED` datetime DEFAULT NULL,
+  `LOCKEDBY` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `DATABASECHANGELOGLOCK`
+--
+
+LOCK TABLES `DATABASECHANGELOGLOCK` WRITE;
+/*!40000 ALTER TABLE `DATABASECHANGELOGLOCK` DISABLE KEYS */;
+INSERT INTO `DATABASECHANGELOGLOCK` VALUES (1,'\0',NULL,NULL);
+/*!40000 ALTER TABLE `DATABASECHANGELOGLOCK` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SPRING_SESSION`
+--
+
+DROP TABLE IF EXISTS `SPRING_SESSION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SPRING_SESSION` (
+  `SESSION_ID` char(36) NOT NULL,
+  `CREATION_TIME` bigint(20) NOT NULL,
+  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
+  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
+  `PRINCIPAL_NAME` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`SESSION_ID`),
+  KEY `SPRING_SESSION_IX1` (`LAST_ACCESS_TIME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SPRING_SESSION`
+--
+
+LOCK TABLES `SPRING_SESSION` WRITE;
+/*!40000 ALTER TABLE `SPRING_SESSION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SPRING_SESSION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SPRING_SESSION_ATTRIBUTES`
+--
+
+DROP TABLE IF EXISTS `SPRING_SESSION_ATTRIBUTES`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SPRING_SESSION_ATTRIBUTES` (
+  `SESSION_ID` char(36) NOT NULL,
+  `ATTRIBUTE_NAME` varchar(200) NOT NULL,
+  `ATTRIBUTE_BYTES` blob NOT NULL,
+  PRIMARY KEY (`SESSION_ID`,`ATTRIBUTE_NAME`),
+  KEY `SPRING_SESSION_ATTRIBUTES_IX1` (`SESSION_ID`),
+  CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_ID`) REFERENCES `SPRING_SESSION` (`SESSION_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SPRING_SESSION_ATTRIBUTES`
+--
+
+LOCK TABLES `SPRING_SESSION_ATTRIBUTES` WRITE;
+/*!40000 ALTER TABLE `SPRING_SESSION_ATTRIBUTES` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SPRING_SESSION_ATTRIBUTES` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `company`
+--
+
+DROP TABLE IF EXISTS `company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `teamid` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `teamid` (`teamid`),
+  CONSTRAINT `company_ibfk_1` FOREIGN KEY (`teamid`) REFERENCES `team` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `company`
+--
+
+LOCK TABLES `company` WRITE;
+/*!40000 ALTER TABLE `company` DISABLE KEYS */;
+/*!40000 ALTER TABLE `company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'testrole','2017-09-04 19:05:26',NULL,NULL,NULL),(2,'testrole','2017-09-04 19:07:30',NULL,NULL,NULL),(3,'updatetest','2017-09-08 23:00:16',NULL,NULL,NULL),(4,'testrole3','2017-09-04 19:27:45',NULL,NULL,NULL),(5,'testrole3','2017-09-08 22:14:01',NULL,NULL,NULL),(6,'testrole3','2017-09-08 22:16:51',NULL,NULL,NULL),(7,'testrole3','2017-09-08 22:19:46',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `team`
+--
+
+DROP TABLE IF EXISTS `team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `techstackid` int(11) NOT NULL,
+  `companyid` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `techstackid` (`techstackid`),
+  CONSTRAINT `team_ibfk_1` FOREIGN KEY (`techstackid`) REFERENCES `techstack` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `team`
+--
+
+LOCK TABLES `team` WRITE;
+/*!40000 ALTER TABLE `team` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `technology`
+--
+
+DROP TABLE IF EXISTS `technology`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `technology` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `techstackid` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `techstackid` (`techstackid`),
+  CONSTRAINT `technology_ibfk_1` FOREIGN KEY (`techstackid`) REFERENCES `techstack` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `technology`
+--
+
+LOCK TABLES `technology` WRITE;
+/*!40000 ALTER TABLE `technology` DISABLE KEYS */;
+/*!40000 ALTER TABLE `technology` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `techstack`
+--
+
+DROP TABLE IF EXISTS `techstack`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `techstack` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `techid` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `techid` (`techid`),
+  CONSTRAINT `techstack_ibfk_1` FOREIGN KEY (`techid`) REFERENCES `technology` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `techstack`
+--
+
+LOCK TABLES `techstack` WRITE;
+/*!40000 ALTER TABLE `techstack` DISABLE KEYS */;
+/*!40000 ALTER TABLE `techstack` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userprofile`
+--
+
+DROP TABLE IF EXISTS `userprofile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userprofile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleid` int(11) NOT NULL,
+  `teamid` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `deleted` timestamp NULL DEFAULT NULL,
+  `version` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `roleid` (`roleid`),
+  KEY `teamid` (`teamid`),
+  CONSTRAINT `userprofile_ibfk_1` FOREIGN KEY (`roleid`) REFERENCES `role` (`id`),
+  CONSTRAINT `userprofile_ibfk_2` FOREIGN KEY (`teamid`) REFERENCES `team` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userprofile`
+--
+
+LOCK TABLES `userprofile` WRITE;
+/*!40000 ALTER TABLE `userprofile` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userprofile` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-09-08 20:37:33

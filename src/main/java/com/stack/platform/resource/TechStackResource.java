@@ -5,11 +5,10 @@ import io.katharsis.resource.annotations.JsonApiResource;
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonApiResource(type="role")
+@JsonApiResource(type="techstack")
 @Getter @Setter
-public class RoleResource extends BaseResource {
+public class TechStackResource extends BaseResource {
 
 	@JsonApiId
 	private Long id;
-	private String name;	
-}
+}	

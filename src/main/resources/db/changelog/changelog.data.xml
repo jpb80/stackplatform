@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="jbuttkevitz" id="testdata">
+	    <sql>
+			INSERT INTO `role` (`name`, `created`, `modified`, `deleted`, `version`) VALUES('test', NOW(), null, null, NOW());
+			INSERT INTO `technology` (`name`, `type`, `techstackid`, `created`, `deleted`, `version`, `modified`) VALUES('Java', 'Language', NOW(), NULL, NOW(), NULL);
+			INSERT INTO `techstack` (`techid`, `created`, `deleted`, `version`, `modified`) VALUES(SELECT id FROM `technology` WHERE `name`='Java', NOW(), NULL, NOW(), NULL);
+		</sql>
+	</changeSet>
+	<changeSet author="jbuttkevitz" id="companyTeams">
+	    <sql>
+			INSERT INTO `team` (`techstackid`, `companyid`, `created`, `modified`, `deleted`) VALUES ()
+			INSERT INTO `company` (`techid`, `created`, `deleted`, `version`, `modified`) VALUES (SELECT id FROM `technology` WHERE `name`='Java', NOW(), NULL, NOW(), NULL);
+		</sql>
+	</changeSet>
+ </databaseChangeLog>

@@ -196,6 +196,28 @@
 		        </executions>
 	      </plugin>
 	      <plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.4.2</version>
+				<configuration>
+					<skip>${liquibase.skip}</skip>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost/platform?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</url>
+					<username>test</username>
+					<password>passw0rd</password>
+					<propertyFile>liquibase.properties</propertyFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+	      <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			  <artifactId>maven-resources-plugin</artifactId>
 			  <version>2.6</version>

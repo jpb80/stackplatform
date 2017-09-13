@@ -240,16 +240,13 @@ DROP TABLE IF EXISTS `technology`;
 CREATE TABLE `technology` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `techstackid` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` timestamp NULL DEFAULT NULL,
   `version` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `techstackid` (`techstackid`),
-  CONSTRAINT `technology_ibfk_1` FOREIGN KEY (`techstackid`) REFERENCES `techstack` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)) 
+  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

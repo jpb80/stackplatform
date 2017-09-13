@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,13 +31,9 @@ public class TechnologyEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 	
-	@Null
+	@NotNull
 	@Column(name = "type")
 	private String type;
-	
-	@NotNull
-	@Column(name = "techstackid")
-	private Long techstackid;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)

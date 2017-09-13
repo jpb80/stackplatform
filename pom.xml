@@ -200,12 +200,14 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.4.2</version>
 				<configuration>
-					<skip>${liquibase.skip}</skip>
 					<driver>com.mysql.jdbc.Driver</driver>
 					<url>jdbc:mysql://localhost/platform?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</url>
 					<username>test</username>
 					<password>passw0rd</password>
-					<propertyFile>liquibase.properties</propertyFile>
+					<changeLogFile>liquibase-changelog.xml</changeLogFile>
+					<verbose>true</verbose>
+					<dropFirst>true</dropFirst>
+<!-- 					<propertyFile>liquibase.properties</propertyFile> -->				
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
 				</configuration>
 				<executions>

@@ -152,15 +152,13 @@ DROP TABLE IF EXISTS `company`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `teamid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,
   `version` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `teamid` (`teamid`),
-  CONSTRAINT `company_ibfk_1` FOREIGN KEY (`teamid`) REFERENCES `team` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)) 
+  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

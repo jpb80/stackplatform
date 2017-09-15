@@ -11,4 +11,8 @@ public class TeamResource extends BaseResource {
 
 	@JsonApiId
 	private Long id;
+
+	private Long techstackid;
+
+	private Long companyid;
 }

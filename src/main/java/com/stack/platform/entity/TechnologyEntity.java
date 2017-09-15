@@ -1,5 +1,7 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +22,12 @@ import lombok.ToString;
 @Table(name = "technology")
 @Getter @Setter
 @ToString @EqualsAndHashCode(callSuper=true)
-public class TechnologyEntity extends BaseEntity {
+public class TechnologyEntity extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -1,5 +1,6 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,10 +22,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "team")
+@Table(name="team")
 @Getter @Setter
-@ToString @EqualsAndHashCode(callSuper=true)
-public class TeamEntity extends BaseEntity {
+@ToString(exclude={"company", "teamTechStacks", "usersOnTeam"}, doNotUseGetters = true) 
+@EqualsAndHashCode(exclude={"company", "teamTechStacks", "usersOnTeam"}, callSuper=true)
+public class TeamEntity extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -43,12 +50,12 @@ public class TeamEntity extends BaseEntity {
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
 	private CompanyEntity company;
 	
-	@OneToMany
-	@JoinColumn(name = "id", insertable = false, updatable = false, 
-				referencedColumnName = "techstackid", nullable = false)
-	private Set<TechStackEntity> teamTechStacks = new HashSet<TechStackEntity>();
-	
-	@OneToMany(mappedBy="team")
+//	@OneToMany
+//	@JoinColumn(name = "id", insertable = false, updatable = false, 
+//				referencedColumnName = "techstackid", nullable = false)
+//	private Set<TechStackEntity> teamTechStacks = new HashSet<TechStackEntity>();
+//	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="team")
 	private Set<UserProfileEntity> usersOnTeam = new HashSet<UserProfileEntity>();
 
 }

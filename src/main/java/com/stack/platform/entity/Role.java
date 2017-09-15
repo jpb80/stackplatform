@@ -1,5 +1,7 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,13 @@ import lombok.ToString;
 @Table(name = "role")
 @Getter @Setter
 @ToString @EqualsAndHashCode(callSuper=true)
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")

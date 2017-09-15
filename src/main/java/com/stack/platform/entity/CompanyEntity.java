@@ -1,10 +1,12 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,20 +23,26 @@ import lombok.ToString;
 @Entity
 @Table(name = "company")
 @Getter @Setter
-@ToString @EqualsAndHashCode(callSuper=true)
-public class CompanyEntity extends BaseEntity{
+@ToString(exclude={"companyTeams"}, doNotUseGetters = true)
+@EqualsAndHashCode(exclude={"companyTeams"}, callSuper=true)
+public class CompanyEntity extends BaseEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
 	@NotNull
-	@Column(name = "teamid")
-	private long teamid;
+	@Column(name = "name")
+	private String name;
 	
-	@OneToMany
-	@JoinColumn(name = "id", insertable = false, updatable = false, referencedColumnName = "teamid", nullable = false)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", insertable = false, updatable = false, nullable = false)
 	private Set<TeamEntity> companyTeams = new HashSet<TeamEntity>();
 
 }

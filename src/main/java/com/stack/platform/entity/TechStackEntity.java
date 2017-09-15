@@ -1,5 +1,6 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,12 @@ import lombok.ToString;
 @Table(name = "techstack")
 @Getter @Setter
 @ToString @EqualsAndHashCode(callSuper=true)
-public class TechStackEntity extends BaseEntity {
+public class TechStackEntity extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

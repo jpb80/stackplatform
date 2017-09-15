@@ -16,7 +16,9 @@ public class CompanyResource extends BaseResource {
 
 	@JsonApiId
 	private Long id;
+
+	private String name;
 	
-	@JsonApiRelation(lookUp=LookupIncludeBehavior.AUTOMATICALLY_WHEN_NULL, serialize=SerializeType.ONLY_ID)
+	@JsonApiRelation
 	private Set<TeamResource> companyTeams;
 }

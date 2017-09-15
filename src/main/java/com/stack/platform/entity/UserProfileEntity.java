@@ -1,5 +1,7 @@
 package com.stack.platform.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +20,14 @@ import lombok.ToString;
 @Entity
 @Table(name = "userprofile")
 @Getter @Setter
-@ToString @EqualsAndHashCode(callSuper=true)
-public class UserProfileEntity extends BaseEntity {
+@ToString(exclude={"role", "team"}, doNotUseGetters = true) 
+@EqualsAndHashCode(exclude={"role", "team"}, callSuper=true)
+public class UserProfileEntity extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

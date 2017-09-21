@@ -27,4 +27,10 @@ public class CompanyResourceController extends ResourceRepositoryBase<CompanyRes
 		return querySpec.apply(companyService.findAll());
 	}
 	
+	@Override
+	@HystrixCommand(groupKey="CompanyFindAll", commandKey="Company",  threadPoolKey="Company")
+	public <S extends CompanyResource> S save(S resource) {
+		return (S) companyService.save(resource);
+	}
+	
 }

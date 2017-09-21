@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -19,6 +20,10 @@ import org.springframework.restdocs.restassured.RestDocumentationFilter;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -30,6 +35,9 @@ import com.netflix.hystrix.strategy.HystrixPlugins;
 @TestPropertySource(locations="classpath:application-integration.properties")
 public abstract class BaseIntegrationTests {
 
+	@Autowired
+	ObjectMapper mapper;
+	
 	@LocalServerPort
 	int port;
 	
@@ -60,6 +68,18 @@ public abstract class BaseIntegrationTests {
 				.addFilter(documentationConfiguration(this.restDocs))
 				.addFilter(documentationFilter)
 				.build();
+	}
+	
+	public String getJsonAPIBody(String resourceName, Object resource) throws JsonProcessingException{
+		ObjectNode root = mapper.createObjectNode();
+		ObjectNode data = mapper.createObjectNode();
+		JsonNode attributes = mapper.valueToTree(resource);
+		
+		data.put("type", resourceName);
+		data.set("attributes", attributes);
+		root.set("data", data);
+		
+		return mapper.writeValueAsString(root);
 	}
 
 }

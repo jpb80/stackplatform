@@ -1,7 +1,6 @@
 package com.stack.platform.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -49,7 +48,7 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 			log.error("saving a role has failed");
 		} catch (NullPointerException npe) {
 			log.error(npe.getMessage());
-			throw new InvalidArgumentException(HttpStatus.BAD_REQUEST);
+			throw new InvalidArgumentException("Unable to process request");
 		}
 		return (S) resourceResp;
 	}

@@ -1,0 +1,95 @@
+= Wombat User API
+Jordan Buttkevitz <Jordan Buttkevitz<jordan.buttkevitz@gmail.com>;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+
+[[overview]]
+= Overview
+
+Using http://jsonapi.org[JSON API Spec]
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+
+|===
+| Verb | Usage
+
+| `GET`
+| Retrieve a resource
+
+| `POST`
+| Create a new resource
+
+| `PATCH`
+| Update existing resource
+
+| `DELETE`
+| Delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request was successfully completed.
+
+| `201 Created`
+| A new resource has been successfully created.
+
+| `400 Bad Request`
+| An error has occurred during the resource request.
+
+| `404 Not Found`
+| The requested resource does not exist.
+
+| `5x Server Errors`
+| The requested server is returning errors.
+|===
+
+[[Company]]
+= Company
+
+Able to create ne company and retrieve existing companies. 
+
+[[FindAll]]
+=== Find All
+
+Retrieves all companies.
+
+===== Example curl request
+
+include::{snippets}/CompanyIntegrationTests/testFindAll/curl-request.adoc[]
+
+===== Example response
+
+include::{snippets}/CompanyIntegrationTests/testFindAll/http-response.adoc[]
+
+[[Save]]
+=== Save
+
+Create a new company.
+
+==== Default Example
+
+===== Example curl request
+
+include::{snippets}/CompanyIntegrationTests/testGetById/curl-request.adoc[]
+
+===== Example request
+
+include::{snippets}/CompanyIntegrationTests/testGetById/http-request.adoc[]
+
+===== Example response
+
+include::{snippets}/CompanyIntegrationTests/testGetById/http-response.adoc[]
+
+

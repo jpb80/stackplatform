@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.stack.platform.entity.Role;
@@ -30,15 +29,15 @@ public class RoleService implements IRoleService {
 				
 		if (roleResource == null) {
 			log.error("roleResource is null");
-			throw new InvalidArgumentException(HttpStatus.BAD_REQUEST);
+			throw new InvalidArgumentException("Unable to process request");
 		}
 		
 		log.debug("roleResource={}", roleResource);
 		
 		String name = roleResource.getName();
 		if (name == null || name.isEmpty()) {
-			log.error("name is null or empty");
-			throw new InvalidArgumentException(HttpStatus.BAD_REQUEST);
+			log.error("The roleResource.getName() is null or empty");
+			throw new InvalidArgumentException("Unable to process request");
 		}
 
 		Role role = new Role();
@@ -61,7 +60,7 @@ public class RoleService implements IRoleService {
 		String roleName = roleResource.getName();
 		if (roleName == null || roleName.isEmpty()) {
 			log.error("roleName cannot be null or empty");
-			throw new InvalidArgumentException(HttpStatus.BAD_REQUEST);
+			throw new InvalidArgumentException("Unable to process request");
 		}
 		
 		role.setName(roleName);

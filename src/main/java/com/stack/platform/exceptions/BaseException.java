@@ -18,6 +18,11 @@ public class BaseException extends RuntimeException {
 		this.status = status;
 	}
 	
+	public BaseException(String message, HttpStatus status) {
+		this.message = message;
+		this.status = status;
+	}
+	
 	public BaseException(HttpStatus status) {
 		this.status = status;
 	}

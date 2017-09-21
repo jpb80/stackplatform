@@ -8,8 +8,8 @@ public class InvalidArgumentException extends BaseException {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public InvalidArgumentException(HttpStatus status) {
-		super(status);
+	public InvalidArgumentException(String msg) {
+		super(msg, HttpStatus.BAD_REQUEST);
 	}
 
 }

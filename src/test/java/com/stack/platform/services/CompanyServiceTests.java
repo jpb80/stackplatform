@@ -21,10 +21,13 @@ import com.stack.platform.services.impl.CompanyService;
 public class CompanyServiceTests extends BaseServiceTests {
 
 	@InjectMocks
-	ICompanyService companyService = new CompanyService();
+	ICompanyService underTest = new CompanyService();
 	
 	@Mock
 	ICompanyRepository companyRepoMock;
+	
+	@Mock
+	CompanyEntity companyMock;
 	
 	@Before
 	public void init() {
@@ -41,7 +44,7 @@ public class CompanyServiceTests extends BaseServiceTests {
 		
 		Mockito.when(companyRepoMock.findAll()).thenReturn(companyEntities);
 		
-		Iterable<CompanyResource> response = companyService.findAll();
+		Iterable<CompanyResource> response = underTest.findAll();
 		
 		Assert.assertNotNull(response);
 		Mockito.verify(companyRepoMock, times(1)).findAll();
@@ -50,5 +53,21 @@ public class CompanyServiceTests extends BaseServiceTests {
 			name = resource.getName();
 		}
 		Assert.assertTrue(name.equals("test"));
+	}
+	
+	@Test
+	public void testSave_NullId_ShouldCreateNewCompany() {
+		
+		CompanyEntity entity = new CompanyEntity();
+		entity.setName("New Company");
+		
+		Mockito.when(companyRepoMock.save(Mockito.any(CompanyEntity.class))).thenReturn(entity);
+		CompanyResource resource = new CompanyResource();
+		resource.setName("New Company");
+		CompanyResource result = underTest.save(resource);
+		
+		Assert.assertNotNull(result);
+		Assert.assertTrue(result.getName().equals("New Company"));
+		Mockito.verify(companyRepoMock,times(1)).save(Mockito.any(CompanyEntity.class));
 	}
 }

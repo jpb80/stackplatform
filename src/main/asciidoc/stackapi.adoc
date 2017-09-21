@@ -1,4 +1,4 @@
-= Wombat User API
+= StackAPI
 Jordan Buttkevitz <Jordan Buttkevitz<jordan.buttkevitz@gmail.com>;
 :doctype: book
 :icons: font

@@ -1,5 +1,10 @@
 package com.stack.platform.services;
 
-public interface ITeamService {
+import com.stack.platform.resource.TeamResource;
 
+public interface ITeamService {
+	
+	public Iterable<TeamResource> findAll();
+	
+	public TeamResource save(TeamResource resource);
 }

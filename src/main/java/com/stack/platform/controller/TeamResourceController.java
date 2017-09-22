@@ -20,8 +20,7 @@ public class TeamResourceController extends ResourceRepositoryBase<TeamResource,
 
 	@Override
 	public ResourceList<TeamResource> findAll(QuerySpec querySpec) {
-		return null;
-		//return querySpec.apply(teamService.findAll());
+		return querySpec.apply(teamService.findAll());
 	}
 
 }

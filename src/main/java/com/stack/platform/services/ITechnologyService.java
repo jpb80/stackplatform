@@ -1,5 +1,7 @@
 package com.stack.platform.services;
 
-public interface ITechnologyService {
+import com.stack.platform.resource.TechnologyResource;
 
+public interface ITechnologyService {
+	public Iterable<TechnologyResource> findAll();
 }

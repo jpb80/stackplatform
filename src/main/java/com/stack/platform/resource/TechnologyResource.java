@@ -1,5 +1,7 @@
 package com.stack.platform.resource;
 
+import com.stack.platform.entity.TechnologyEntity;
+
 import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
@@ -19,4 +21,15 @@ public class TechnologyResource extends BaseResource {
 
 	@JsonApiRelation(lookUp=LookupIncludeBehavior.AUTOMATICALLY_WHEN_NULL,serialize=SerializeType.ONLY_ID)
 	private TechStackResource techstack;
+	
+	public TechnologyResource() {}
+	
+	public TechnologyResource(TechnologyEntity entity) {
+		setCreated(entity.getCreated());
+		setDeleted(entity.getDeleted());
+		setModified(entity.getModified());
+		setId(entity.getId());
+		setName(entity.getName());
+		setType(entity.getType());
+	}
 }

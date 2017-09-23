@@ -58,7 +58,7 @@ public class TeamServiceTests extends BaseServiceTests {
 		TeamResource resource = new TeamResource();
 		resource.setCompanyid(123L);
 		
-		Mockito.when(teamRepoMock.findOne(Mockito.anyLong())).thenReturn(teamMock);
+		Mockito.when(teamRepoMock.findById(Mockito.anyLong())).thenReturn(teamMock);
 		Mockito.when(companyRepoMock.findOne(Mockito.anyLong())).thenReturn(companyMock);
 		Mockito.when(teamRepoMock.save(Mockito.any(TeamEntity.class))).thenReturn(teamMock);
 		
@@ -77,7 +77,7 @@ public class TeamServiceTests extends BaseServiceTests {
 		resource.setId(1L);
 		resource.setCompanyid(123L);
 		
-		Mockito.when(teamRepoMock.findOne(Mockito.anyLong())).thenReturn(teamMock);
+		Mockito.when(teamRepoMock.findById(Mockito.anyLong())).thenReturn(teamMock);
 		Mockito.when(companyRepoMock.findOne(Mockito.anyLong())).thenReturn(companyMock);
 		Mockito.when(teamRepoMock.save(Mockito.any(TeamEntity.class))).thenReturn(teamMock);
 		

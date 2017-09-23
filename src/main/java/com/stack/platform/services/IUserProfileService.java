@@ -6,5 +6,7 @@ public interface IUserProfileService {
 
 	public Iterable<UserProfileResource> findAll();
 	
-	public <S extends UserProfileResource> S save(S resource);
+	public UserProfileResource  save(UserProfileResource resource);
+	
+	//public UserProfileResource findOne(Long id);
 }

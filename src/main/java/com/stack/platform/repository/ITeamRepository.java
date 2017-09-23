@@ -8,7 +8,7 @@ import com.stack.platform.entity.TeamEntity;
 
 public interface ITeamRepository extends Repository<TeamEntity, Long> {
 
-	TeamEntity findOne(Long id);
+	TeamEntity findById(Long id);
 	
 	Set<TeamEntity> findAll();
 	

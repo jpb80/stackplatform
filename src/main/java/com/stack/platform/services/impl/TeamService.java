@@ -31,7 +31,7 @@ public class TeamService implements ITeamService {
 	public TeamResource save(TeamResource resource) {
 		
 		Long resourceId = resource.getId();
-		TeamEntity teamEntity = teamRepo.findOne(resourceId);
+		TeamEntity teamEntity = teamRepo.findById(resourceId);
 		
 		if (resourceId == null) {
 			if (teamEntity != null) {

@@ -27,6 +27,7 @@ public class CompanyResourceController extends ResourceRepositoryBase<CompanyRes
 		return querySpec.apply(companyService.findAll());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@HystrixCommand(groupKey="CompanyFindAll", commandKey="Company",  threadPoolKey="Company")
 	public <S extends CompanyResource> S save(S resource) {

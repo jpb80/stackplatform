@@ -8,9 +8,9 @@ import com.stack.platform.entity.TeamEntity;
 
 public interface ITeamRepository extends Repository<TeamEntity, Long> {
 
-	public TeamEntity findOne(Long id);
+	TeamEntity findOne(Long id);
 	
-	public Set<TeamEntity> findAll();
+	Set<TeamEntity> findAll();
 	
-	public <S extends TeamEntity> S save(TeamEntity entity);
+	<S extends TeamEntity> S save(TeamEntity entity);
 }

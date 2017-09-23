@@ -8,9 +8,9 @@ import com.stack.platform.entity.CompanyEntity;
 
 public interface ICompanyRepository extends Repository<CompanyEntity, Long> {
 
-	public CompanyEntity save(CompanyEntity entity);
+	CompanyEntity save(CompanyEntity entity);
 	
-	public Set<CompanyEntity> findAll();
+	Set<CompanyEntity> findAll();
 	
-	public CompanyEntity findOne(Long id);
+	CompanyEntity findOne(Long id);
 }

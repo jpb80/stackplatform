@@ -6,9 +6,9 @@ import com.stack.platform.entity.TechnologyEntity;
 
 public interface ITechnologyRepository extends Repository<TechnologyEntity, Long>{
 
-	public <S extends TechnologyEntity> S save(S technologyEntity);
+	<S extends TechnologyEntity> S save(S technologyEntity);
 	
-	public Iterable<TechnologyEntity> findAll();
+	Iterable<TechnologyEntity> findAll();
 	
-	public TechnologyEntity findById(Long id);
+	TechnologyEntity findById(Long id);
 }

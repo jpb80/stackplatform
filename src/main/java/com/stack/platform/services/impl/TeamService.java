@@ -7,6 +7,7 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.stack.platform.entity.CompanyEntity;
 import com.stack.platform.entity.TeamEntity;
@@ -16,6 +17,7 @@ import com.stack.platform.repository.ITeamRepository;
 import com.stack.platform.resource.TeamResource;
 import com.stack.platform.services.ITeamService;
 
+@Service
 public class TeamService implements ITeamService {
 
 	@Autowired

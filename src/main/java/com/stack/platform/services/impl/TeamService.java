@@ -36,6 +36,7 @@ public class TeamService implements ITeamService {
 		if (resourceId == null) {
 			if (teamEntity != null) {
 				teamEntity.setDeleted(null);
+				teamEntity.setModified(new Date());
 			} else {
 				teamEntity = new TeamEntity();
 				teamEntity.setCreated(new Date());

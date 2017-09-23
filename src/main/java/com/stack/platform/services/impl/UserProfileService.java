@@ -80,6 +80,12 @@ public class UserProfileService implements IUserProfileService {
 				throw new InvalidArgumentException("Unable to process request");
 			}
 			
+			Date deleted = entity.getDeleted();
+			if (deleted != null) {
+				log.error("UserProfileEntity is soft deleted");
+				throw new InvalidArgumentException("Unable to process request");
+			}
+			
 			log.debug("Updating existing UserProfileEntity");
 			entity.setModified(new Date());
 			entity = fromResourceToEntity(entity, resource);				

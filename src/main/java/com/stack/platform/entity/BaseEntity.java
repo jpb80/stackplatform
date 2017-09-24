@@ -3,6 +3,7 @@ package com.stack.platform.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -10,10 +11,11 @@ import javax.persistence.Version;
 import lombok.Data;
 
 @Data
-public class BaseEntity {
+@MappedSuperclass
+public abstract class BaseEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created", updatable=false)
+	@Column(name = "created", nullable=false, updatable=false)
 	private Date created;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -24,9 +26,9 @@ public class BaseEntity {
 	@Column(name = "deleted")
 	private Date deleted;
 	
-	@Version
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "version", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "version")
+	@Version
 	private Date version;
 
 }

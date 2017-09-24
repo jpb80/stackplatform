@@ -156,7 +156,7 @@ CREATE TABLE `company` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`)) 
   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -183,7 +183,7 @@ CREATE TABLE `role` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -212,7 +212,7 @@ CREATE TABLE `team` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `techstackid` (`techstackid`),
   CONSTRAINT `team_ibfk_1` FOREIGN KEY (`techstackid`) REFERENCES `techstack` (`id`)
@@ -241,8 +241,8 @@ CREATE TABLE `technology` (
   `type` varchar(255) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`)) 
   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -268,8 +268,8 @@ CREATE TABLE `techstack` (
   `techid` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `techid` (`techid`),
   CONSTRAINT `techstack_ibfk_1` FOREIGN KEY (`techid`) REFERENCES `technology` (`id`)
@@ -296,10 +296,10 @@ CREATE TABLE `userprofile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `roleid` int(11) NOT NULL,
   `teamid` int(11) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,
-  `version` timestamp NULL DEFAULT NULL,
+  `version` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `roleid` (`roleid`),
   KEY `teamid` (`teamid`),

@@ -5,4 +5,7 @@ import com.stack.platform.resource.TechnologyResource;
 public interface ITechnologyService {
 	
 	public Iterable<TechnologyResource> findAll();
+	
+	public TechnologyResource save(TechnologyResource resource);
 }
+

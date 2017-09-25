@@ -30,7 +30,7 @@ public class UserProfileResourceController extends ResourceRepositoryBase<UserPr
 	@Override
 	@HystrixCommand(groupKey="UserProfileFindOne", commandKey="UserProfile",  threadPoolKey="UserProfile")
 	public UserProfileResource findOne(Long id, QuerySpec querySpec) {
-		return findOne(id, querySpec);
+		return userService.findOne(id);
 	}
 	
 	@SuppressWarnings("unchecked")

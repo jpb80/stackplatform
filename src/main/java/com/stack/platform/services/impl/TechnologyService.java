@@ -1,7 +1,10 @@
 package com.stack.platform.services.impl;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,27 @@ public class TechnologyService implements ITechnologyService {
 		}
 		
 		return entityResources;
+	}
+	
+
+	@Override
+	@Transactional
+	public TechnologyResource save(TechnologyResource resource) {
+		
+		TechnologyEntity entity = null;
+		
+		Long resourceId = resource.getId();
+		if (resourceId == null) {
+			entity = new TechnologyEntity();
+			entity.setCreated(new Date());
+			entity.setName(resource.getName());
+			entity.setType(resource.getType());
+			entity.setTechstack(resource.getTechstack());
+		} else {
+			entity = techRepo.findById(resourceId);
+			entity.setModified(new Date());
+		}
+		return convertToResource(entity);
 	}
 	
 	private TechnologyResource convertToResource(TechnologyEntity entity) {

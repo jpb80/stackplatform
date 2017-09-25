@@ -8,5 +8,5 @@ public interface IUserProfileService {
 	
 	public UserProfileResource  save(UserProfileResource resource);
 	
-	//public UserProfileResource findOne(Long id);
+	public UserProfileResource findOne(Long id);
 }

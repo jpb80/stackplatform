@@ -6,6 +6,6 @@ public class UserProfileServiceTests extends BaseServiceTests {
  
 	@Test
 	public void testSave() {
-		//TODO
+		
 	}
 }

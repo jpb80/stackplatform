@@ -294,8 +294,8 @@ DROP TABLE IF EXISTS `userprofile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userprofile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `roleid` int(11) NOT NULL,
-  `teamid` int(11) NOT NULL,
+  `roleid` int(11) NOT NULL DEFAULT 1,
+  `teamid` int(11) NOT NULL DEFAULT 1,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT NULL,
   `deleted` timestamp NULL DEFAULT NULL,

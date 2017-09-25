@@ -46,48 +46,44 @@ public class UserProfileService implements IUserProfileService {
 		return userResources;
 	}
 	
-//	@Override
-//	public UserProfileResource findOne(Long id) {
-//		
-//		if (id == null) {
-//			log.error("UserProfileResource id cannot be null");
-//			throw new InvalidArgumentException("Unable to process request");
-//		}
-//		return convertToResource(userRepo.findOne(id));
-//	}
+	@Override
+	public UserProfileResource findOne(Long id) {
+		
+		if (id == null) {
+			log.error("UserProfileResource id cannot be null");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		return convertToResource(userRepo.findOne(id));
+	}
 
 	@Override
 	@Transactional
 	public UserProfileResource save(UserProfileResource resource) {
 		
 		Long resourceId = resource.getId();
-		UserProfileEntity entity = userRepo.findById(resourceId);
+		UserProfileEntity entity = null;
 		
 		if (resourceId == null) {
-			if (entity != null && entity.getDeleted() != null) {
-				log.debug("Undeleting existing UserProfileEntity");
-				entity.setDeleted(null);
-				entity.setModified(new Date());
-			} else {
-				log.debug("Creating a new UserProfileEntity");
-				entity = new UserProfileEntity();
-				entity.setCreated(new Date());
-				entity = fromResourceToEntity(entity, resource);				
-			}
-		} else {
+			log.debug("Creating a new UserProfileEntity");
+			entity = new UserProfileEntity();
+			entity.setCreated(new Date());
+			entity = fromResourceToEntity(entity, resource);				
+		} else {			
+			entity = userRepo.findById(resourceId);
 			if (entity == null) {
 				log.error("UserProfileEntity does not exist for id={}", resourceId);
 				throw new InvalidArgumentException("Unable to process request");
 			}
 			
-			Date deleted = entity.getDeleted();
-			if (deleted != null) {
-				log.error("UserProfileEntity is soft deleted");
-				throw new InvalidArgumentException("Unable to process request");
-			}
-			
-			log.debug("Updating existing UserProfileEntity");
-			entity.setModified(new Date());
+			if (entity.getDeleted() != null) {
+				log.debug("Undeleting existing UserProfileEntity");
+				entity.setDeleted(null);
+				entity.setModified(new Date());
+			}  else {
+				log.debug("Updating existing UserProfileEntity");
+				entity.setModified(new Date());	
+			}			
+
 			entity = fromResourceToEntity(entity, resource);				
 		}
 		

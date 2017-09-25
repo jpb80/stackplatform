@@ -26,5 +26,11 @@ public class TechnologyResourceController extends ResourceRepositoryBase<Technol
 	public ResourceList<TechnologyResource> findAll(QuerySpec querySpec) {
 		return querySpec.apply(techService.findAll());
 	}
+	
+	@Override
+	@HystrixCommand(groupKey="Technology", commandKey="FindAllTech",  threadPoolKey="FindAllTech")
+	public <S extends TechnologyResource> S save(S resource) {
+		return techService.save(resource);
+	}
 
 }

@@ -17,7 +17,10 @@ import com.stack.platform.repository.ITeamRepository;
 import com.stack.platform.resource.TeamResource;
 import com.stack.platform.services.ITeamService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TeamService implements ITeamService {
 
 	@Autowired
@@ -28,26 +31,41 @@ public class TeamService implements ITeamService {
 	
 	@Override
 	@Transactional
+	public TeamResource findOne(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		TeamEntity entity = teamRepo.findOne(id);
+		if (entity == null) {
+			log.error("TeamEntity does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		return convertToResource(entity);
+	}
+	
+	@Override
+	@Transactional
 	public TeamResource save(TeamResource resource) {
 		
 		Long resourceId = resource.getId();
 		TeamEntity teamEntity = teamRepo.findById(resourceId);
 		
 		if (resourceId == null) {
-			if (teamEntity != null) {
-				teamEntity.setDeleted(null);
-				teamEntity.setModified(new Date());
-			} else {
-				teamEntity = new TeamEntity();
-				teamEntity.setCreated(new Date());
-			}
+			teamEntity = new TeamEntity();
+			teamEntity.setCreated(new Date());
 		} else {
 			if (teamEntity == null) {
+				log.error("TeamEntity does not exist for id={}", resourceId);
 				throw new InvalidArgumentException("Unable to process request");
 			}
 			
 			Date deleted = teamEntity.getDeleted();
 			if (deleted != null) {
+				log.error("TeamEntity was deleted id={}", resourceId);
 				throw new InvalidArgumentException("Unable to process request");
 			}
 			teamEntity.setModified(new Date());
@@ -57,6 +75,8 @@ public class TeamService implements ITeamService {
 		return convertToResource(teamRepo.save(teamEntity));
 	}
 	
+	@Override
+	@Transactional
 	public Iterable<TeamResource> findAll() {
 		
 		Iterable<TeamEntity> teams = teamRepo.findAll();
@@ -66,6 +86,24 @@ public class TeamService implements ITeamService {
 			teamResources.add(teamResource);
 		}
 		return teamResources;
+	}
+	
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		TeamEntity entity = teamRepo.findOne(id);
+		if (entity == null) {
+			log.error("Company does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}		
+		entity.setDeleted(new Date());
+		teamRepo.save(entity);
 	}
 
 	private TeamResource convertToResource(TeamEntity entity) {
@@ -86,7 +124,6 @@ public class TeamService implements ITeamService {
 		entity.setCompanyid(companyId);
 		entity.setCompanyid(resource.getCompanyid());
 		entity.setTechstackid(resource.getTechstackid());
-		entity.setDeleted(resource.getDeleted());
 		return entity;
 	}
 

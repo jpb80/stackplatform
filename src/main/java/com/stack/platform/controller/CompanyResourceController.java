@@ -20,6 +20,12 @@ public class CompanyResourceController extends ResourceRepositoryBase<CompanyRes
 	public CompanyResourceController() {
 		super(CompanyResource.class);
 	}
+	
+	@Override
+	@HystrixCommand(groupKey="CompanyFindOne", commandKey="Company",  threadPoolKey="Company")
+	public CompanyResource findOne(Long id, QuerySpec querySpec) {
+		return companyService.findOne(id);
+	}
 
 	@Override
 	@HystrixCommand(groupKey="CompanyFindAll", commandKey="Company",  threadPoolKey="Company")
@@ -32,6 +38,12 @@ public class CompanyResourceController extends ResourceRepositoryBase<CompanyRes
 	@HystrixCommand(groupKey="CompanyFindAll", commandKey="Company",  threadPoolKey="Company")
 	public <S extends CompanyResource> S save(S resource) {
 		return (S) companyService.save(resource);
+	}
+	
+	@Override
+	@HystrixCommand(groupKey="CompanyDelete", commandKey="Company",  threadPoolKey="Company")
+	public void delete(Long id) {
+		companyService.delete(id);
 	}
 	
 }

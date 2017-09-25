@@ -11,4 +11,6 @@ public interface ITechnologyRepository extends Repository<TechnologyEntity, Long
 	Iterable<TechnologyEntity> findAll();
 	
 	TechnologyEntity findById(Long id);
+	
+	TechnologyEntity findOne(Long id);
 }

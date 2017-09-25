@@ -27,10 +27,11 @@ public class TechnologyResourceController extends ResourceRepositoryBase<Technol
 		return querySpec.apply(techService.findAll());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@HystrixCommand(groupKey="Technology", commandKey="FindAllTech",  threadPoolKey="FindAllTech")
 	public <S extends TechnologyResource> S save(S resource) {
-		return techService.save(resource);
+		return (S) techService.save(resource);
 	}
 
 }

@@ -9,4 +9,8 @@ public interface ITechStackRepository extends Repository<TechStackEntity, Long> 
 	<S extends TechStackEntity> S save(S roleEntity);
 	
 	TechStackEntity findById(Long id);
+	
+	TechStackEntity findOne(Long id);
+
+	Iterable<TechStackEntity> findAll();
 }

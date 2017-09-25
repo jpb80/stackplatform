@@ -5,6 +5,11 @@ import com.stack.platform.resource.RoleResource;
 
 public interface IRoleService {
 
-	public RoleResource addRole(RoleResource roleResource) throws InvalidArgumentException;
-	public RoleResource updateRole(RoleResource roleResource) throws InvalidArgumentException;
+	RoleResource addRole(RoleResource roleResource) throws InvalidArgumentException;
+	
+	RoleResource updateRole(RoleResource roleResource) throws InvalidArgumentException;
+	
+	void delete(Long id);
+
+	RoleResource findOne(Long id);
 }

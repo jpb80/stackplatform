@@ -9,4 +9,6 @@ public interface IRoleRepository extends Repository<Role, Long>  {
 	<S extends Role> S save(S roleEntity);
 	
 	Role findById(Long id);
+	
+	Role findOne(Long id);
 }

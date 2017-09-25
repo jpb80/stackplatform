@@ -70,6 +70,43 @@ public class RoleService implements IRoleService {
 		
 	}
 	
+	@Override
+	@Transactional
+	public RoleResource findOne(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		Role entity = roleRepo.findOne(id);
+		if (entity == null) {
+			log.error("Company does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		return convertToResource(entity);
+	}
+
+	
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		Role entity = roleRepo.findOne(id);
+		if (entity == null) {
+			log.error("Role does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}		
+		entity.setDeleted(new Date());
+		roleRepo.save(entity);
+	}
+	
 	private RoleResource convertToResource(@NotNull Role role) {
 		RoleResource roleResouce = new RoleResource();
 		roleResouce.setId(role.getId());

@@ -10,6 +10,8 @@ public interface ITeamRepository extends Repository<TeamEntity, Long> {
 
 	TeamEntity findById(Long id);
 	
+	TeamEntity findOne(Long id);
+	
 	Set<TeamEntity> findAll();
 	
 	<S extends TeamEntity> S save(TeamEntity entity);

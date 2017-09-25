@@ -16,12 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Where(clause="deleted is null")
 @Table(name="team")
 @Getter @Setter
 @ToString(exclude={"company", "teamTechStacks", "usersOnTeam"}, doNotUseGetters = true) 

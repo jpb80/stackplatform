@@ -12,12 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Where(clause="deleted is null")
 @Table(name = "userprofile")
 @Getter @Setter
 @ToString(exclude={"role", "team"}, doNotUseGetters = true) 

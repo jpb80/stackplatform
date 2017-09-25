@@ -4,7 +4,11 @@ import com.stack.platform.resource.TeamResource;
 
 public interface ITeamService {
 	
-	public Iterable<TeamResource> findAll();
+	Iterable<TeamResource> findAll();
 	
-	public TeamResource save(TeamResource resource);
+	TeamResource save(TeamResource resource);
+
+	void delete(Long id);
+
+	TeamResource findOne(Long id);
 }

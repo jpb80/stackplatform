@@ -13,8 +13,8 @@ import io.katharsis.repository.ResourceRepositoryBase;
 import io.katharsis.resource.list.ResourceList;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
+@Slf4j
 public class RoleResourceController extends ResourceRepositoryBase<RoleResource, Long> {
 
 	@Autowired
@@ -25,7 +25,7 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 	}
 
 	@Override
-	@HystrixCommand(groupKey="RoleGroup", commandKey="FindAllRoles",  threadPoolKey="RoleThreadPool")
+	@HystrixCommand(groupKey="RoleFindAll", commandKey="FindAllRoles",  threadPoolKey="RoleThreadPool")
 	public ResourceList<RoleResource> findAll(QuerySpec querySpec) {
 		// TODO Auto-generated method stub
 		return null;
@@ -33,7 +33,7 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@HystrixCommand(groupKey="RoleGroup", commandKey="SaveRoleCommand",  threadPoolKey="RoleThreadPool")
+	@HystrixCommand(groupKey="RoleSave", commandKey="SaveRoleCommand",  threadPoolKey="RoleThreadPool")
 	public <S extends RoleResource> S save(S resource) {
 		
 		RoleResource resourceResp = null;
@@ -51,6 +51,12 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 			throw new InvalidArgumentException("Unable to process request");
 		}
 		return (S) resourceResp;
+	}
+	
+	@Override
+	@HystrixCommand(groupKey="RoleGroup", commandKey="SaveRoleCommand",  threadPoolKey="RoleThreadPool")
+	public void delete(Long id) {
+		roleService.delete(id);
 	}
 
 }

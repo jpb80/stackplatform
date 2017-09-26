@@ -19,6 +19,7 @@ import com.stack.platform.entity.TeamEntity;
 import com.stack.platform.repository.ICompanyRepository;
 import com.stack.platform.repository.ITeamRepository;
 import com.stack.platform.resource.TeamResource;
+import com.stack.platform.resource.UserProfileResource;
 import com.stack.platform.services.impl.TeamService;
 
 public class TeamServiceTests extends BaseServiceTests {
@@ -80,6 +81,14 @@ public class TeamServiceTests extends BaseServiceTests {
 		Mockito.verify(teamRepoMock, times(1)).findOne(Mockito.anyLong());
 		Mockito.verify(teamMock, times(1)).setDeleted(Mockito.any(Date.class));
 		Mockito.verify(teamRepoMock, times(1)).save(Mockito.any(TeamEntity.class));
+	}
+	
+	@Test
+	public void testFindOne() {
+		
+		Mockito.when(teamRepoMock.findOne(Mockito.anyLong())).thenReturn(teamMock);
+		TeamResource result = underTest.findOne(1L);
+		Mockito.verify(teamRepoMock, times(1)).findOne(Mockito.anyLong());
 	}
 
 }

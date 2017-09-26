@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.stack.platform.entity.CompanyEntity;
 import com.stack.platform.repository.ICompanyRepository;
 import com.stack.platform.resource.CompanyResource;
+import com.stack.platform.resource.TeamResource;
 import com.stack.platform.services.impl.CompanyService;
 
 public class CompanyServiceTests extends BaseServiceTests {
@@ -83,4 +84,13 @@ public class CompanyServiceTests extends BaseServiceTests {
 		Mockito.verify(companyMock, times(1)).setDeleted(Mockito.any(Date.class));
 		Mockito.verify(companyRepoMock, times(1)).save(Mockito.any(CompanyEntity.class));
 	}
+	
+	@Test
+	public void testFindOne() {
+		
+		Mockito.when(companyRepoMock.findOne(Mockito.anyLong())).thenReturn(companyMock);
+		CompanyResource result = underTest.findOne(1L);
+		Mockito.verify(companyRepoMock, times(1)).findOne(Mockito.anyLong());
+	}
+	
 }

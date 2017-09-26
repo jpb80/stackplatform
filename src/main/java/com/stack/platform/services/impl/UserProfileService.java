@@ -35,6 +35,7 @@ public class UserProfileService implements IUserProfileService {
 	IRoleRepository roleRepo;
 	
 	@Override
+	@Transactional
 	public Iterable<UserProfileResource> findAll() {
 		
 		Iterable<UserProfileEntity> users = userRepo.findAll();
@@ -47,10 +48,11 @@ public class UserProfileService implements IUserProfileService {
 	}
 	
 	@Override
+	@Transactional
 	public UserProfileResource findOne(Long id) {
 		
-		if (id == null) {
-			log.error("UserProfileResource id cannot be null");
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
 			throw new InvalidArgumentException("Unable to process request");
 		}
 		return convertToResource(userRepo.findOne(id));

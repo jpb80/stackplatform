@@ -11,5 +11,7 @@ public class RoleResource extends BaseResource {
 
 	@JsonApiId
 	private Long id;
-	private String name;	
+	private String name;
+	
+	public RoleResource() {}
 }

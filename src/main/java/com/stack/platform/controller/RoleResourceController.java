@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.stack.platform.exceptions.InvalidArgumentException;
 import com.stack.platform.resource.RoleResource;
 import com.stack.platform.services.IRoleService;
 
@@ -41,22 +40,7 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 	@Override
 	@HystrixCommand(groupKey="RoleSave", commandKey="SaveRoleCommand",  threadPoolKey="RoleThreadPool")
 	public <S extends RoleResource> S save(S resource) {
-		
-		RoleResource resourceResp = null;
-		try {
-			Long roleId = resource.getId();
-			if (roleId == null) {
-				resourceResp =  roleService.addRole(resource);
-			} else {
-				resourceResp = roleService.updateRole(resource);
-			}
-		} catch (InvalidArgumentException e) {
-			log.error("saving a role has failed");
-		} catch (NullPointerException npe) {
-			log.error(npe.getMessage());
-			throw new InvalidArgumentException("Unable to process request");
-		}
-		return (S) resourceResp;
+		return (S) roleService.save(resource);
 	}
 	
 	@Override

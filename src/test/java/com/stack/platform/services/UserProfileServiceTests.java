@@ -75,8 +75,6 @@ public class UserProfileServiceTests extends BaseServiceTests {
 	public void testFindAll() {
 		
 		Set<UserProfileEntity> entities = new HashSet<UserProfileEntity>();
-		userMock.setTeam(new TeamEntity());
-		userMock.setRole(new Role());
 		entities.add(userMock);
 				
 		Mockito.when(userRepoMock.findAll()).thenReturn(entities);
@@ -98,5 +96,16 @@ public class UserProfileServiceTests extends BaseServiceTests {
 		Mockito.verify(userRepoMock, times(1)).findOne(Mockito.anyLong());
 		Mockito.verify(userMock, times(1)).setDeleted(Mockito.any(Date.class));
 		Mockito.verify(userRepoMock, times(1)).save(Mockito.any(UserProfileEntity.class));
+	}
+	
+	@Test
+	public void testFindOne() {
+		
+		Mockito.when(userRepoMock.findOne(Mockito.anyLong())).thenReturn(userMock);
+		Mockito.when(userMock.getTeam()).thenReturn(new TeamEntity());
+		Mockito.when(userMock.getRole()).thenReturn(new Role());
+		
+		UserProfileResource result = underTest.findOne(1L);
+		Mockito.verify(userRepoMock, times(1)).findOne(Mockito.anyLong());
 	}
 }

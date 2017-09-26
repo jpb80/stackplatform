@@ -1,5 +1,7 @@
 package com.stack.platform.resource;
 
+import com.stack.platform.entity.Role;
+import com.stack.platform.entity.TeamEntity;
 import com.stack.platform.entity.UserProfileEntity;
 
 import io.katharsis.resource.annotations.JsonApiId;
@@ -24,8 +26,10 @@ public class UserProfileResource extends BaseResource {
 		setCreated(entity.getCreated());
 		setDeleted(entity.getDeleted());
 		setModified(entity.getModified());
-		setTeamid(entity.getTeam().getId());
-		setRoleid(entity.getRole().getId());
+		TeamEntity team = entity.getTeam();
+		setTeamid(team.getId());
+		Role role = entity.getRole();
+		setRoleid(role.getId());
 		setId(entity.getId());
 	}
 }

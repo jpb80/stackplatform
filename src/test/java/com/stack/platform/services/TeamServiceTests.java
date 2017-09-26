@@ -68,7 +68,18 @@ public class TeamServiceTests extends BaseServiceTests {
 		Mockito.verify(teamMock, times(1)).setModified(Mockito.any(Date.class));
 		Mockito.verify(teamMock, never()).setCreated(Mockito.any(Date.class));
 		Mockito.verify(teamRepoMock, times(1)).save(Mockito.any(TeamEntity.class));
-
+	}
+	
+	@Test
+	public void testDelete() {
+		
+		Mockito.when(teamRepoMock.findOne(123L)).thenReturn(teamMock);
+		Mockito.when(teamRepoMock.save(Mockito.any(TeamEntity.class))).thenReturn(teamMock);	
+		
+		underTest.delete(123L);		
+		Mockito.verify(teamRepoMock, times(1)).findOne(Mockito.anyLong());
+		Mockito.verify(teamMock, times(1)).setDeleted(Mockito.any(Date.class));
+		Mockito.verify(teamRepoMock, times(1)).save(Mockito.any(TeamEntity.class));
 	}
 
 }

@@ -2,6 +2,7 @@ package com.stack.platform.services;
 
 import static org.mockito.Mockito.times;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,5 +70,17 @@ public class CompanyServiceTests extends BaseServiceTests {
 		Assert.assertNotNull(result);
 		Assert.assertTrue(result.getName().equals("New Company"));
 		Mockito.verify(companyRepoMock,times(1)).save(Mockito.any(CompanyEntity.class));
+	}
+	
+	@Test
+	public void testDelete() {
+		
+		Mockito.when(companyRepoMock.findOne(123L)).thenReturn(companyMock);
+		Mockito.when(companyRepoMock.save(Mockito.any(CompanyEntity.class))).thenReturn(companyMock);	
+		
+		underTest.delete(123L);		
+		Mockito.verify(companyRepoMock, times(1)).findOne(Mockito.anyLong());
+		Mockito.verify(companyMock, times(1)).setDeleted(Mockito.any(Date.class));
+		Mockito.verify(companyRepoMock, times(1)).save(Mockito.any(CompanyEntity.class));
 	}
 }

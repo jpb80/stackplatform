@@ -40,5 +40,9 @@ public class UserProfileResourceController extends ResourceRepositoryBase<UserPr
 		return (S) userService.save(resource);
 	}
 	
-	
+	@Override
+	@HystrixCommand(groupKey="UserProfileDelete", commandKey="UserProfile",  threadPoolKey="UserProfile")
+	public void delete(Long id) {
+		userService.delete(id);
+	}	
 }

@@ -47,6 +47,7 @@ public class TechnologyService implements ITechnologyService {
 	@Override
 	@Transactional
 	public Iterable<TechnologyResource> findAll() {
+		
 		Iterable<TechnologyEntity> entities = techRepo.findAll();
 		Collection<TechnologyResource> entityResources = new HashSet<TechnologyResource>();
 		for (TechnologyEntity entity : entities) {

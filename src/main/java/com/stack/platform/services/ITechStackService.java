@@ -9,5 +9,7 @@ public interface ITechStackService {
 	TechStackResource findOne(Long id);
 
 	TechStackResource save(TechStackResource resource);
+	
+	void delete(Long id);
 
 }

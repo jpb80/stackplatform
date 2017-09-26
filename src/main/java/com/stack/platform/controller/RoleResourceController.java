@@ -23,12 +23,18 @@ public class RoleResourceController extends ResourceRepositoryBase<RoleResource,
 	protected RoleResourceController() {
 		super(RoleResource.class);
 	}
+	
+	
+	@Override
+	@HystrixCommand(groupKey="RoleFindOne", commandKey="FindAllRoles",  threadPoolKey="RoleThreadPool")
+	public RoleResource findOne(Long id, QuerySpec querySpec) {
+		return roleService.findOne(id);
+	}
 
 	@Override
 	@HystrixCommand(groupKey="RoleFindAll", commandKey="FindAllRoles",  threadPoolKey="RoleThreadPool")
 	public ResourceList<RoleResource> findAll(QuerySpec querySpec) {
-		// TODO Auto-generated method stub
-		return null;
+		return querySpec.apply(roleService.findAll());
 	}
 	
 	@SuppressWarnings("unchecked")

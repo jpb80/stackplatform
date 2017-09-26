@@ -12,4 +12,6 @@ public interface IRoleService {
 	void delete(Long id);
 
 	RoleResource findOne(Long id);
+	
+	Iterable<RoleResource> findAll();
 }

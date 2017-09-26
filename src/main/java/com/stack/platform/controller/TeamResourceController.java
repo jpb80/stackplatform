@@ -21,18 +21,29 @@ public class TeamResourceController extends ResourceRepositoryBase<TeamResource,
 		super(TeamResource.class);
 	}
 	
+	@Override
+	@HystrixCommand(groupKey="TeamFindOne", commandKey="Team",  threadPoolKey="Team")
+	public TeamResource findOne(Long id, QuerySpec querySpec) {
+		return teamService.findOne(id);
+	}
 
 	@Override
-	@HystrixCommand(groupKey="Team", commandKey="FindAllTeams",  threadPoolKey="FindAllTeams")
+	@HystrixCommand(groupKey="TeamFindAll", commandKey="Team",  threadPoolKey="Team")
 	public ResourceList<TeamResource> findAll(QuerySpec querySpec) {
 		return querySpec.apply(teamService.findAll());
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@HystrixCommand(groupKey="Team", commandKey="SaveTeam",  threadPoolKey="SaveTeam")
+	@HystrixCommand(groupKey="TeamSave", commandKey="Team",  threadPoolKey="Team")
 	public <S extends TeamResource> S save(S resource) {
 		return (S) teamService.save(resource);
+	}
+	
+	@Override
+	@HystrixCommand(groupKey="TeamDelete", commandKey="Team",  threadPoolKey="Team")
+	public void delete(Long id) {
+		teamService.delete(id);
 	}
 
 }

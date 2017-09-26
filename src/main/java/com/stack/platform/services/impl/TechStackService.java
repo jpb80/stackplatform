@@ -86,6 +86,25 @@ public class TechStackService implements ITechStackService {
 		return convertToResource(techstackRepo.save(entity));
 	}
 	
+	
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		TechStackEntity entity = techstackRepo.findOne(id);
+		if (entity == null) {
+			log.error("TechStack does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}		
+		entity.setDeleted(new Date());
+		techstackRepo.save(entity);
+	}
+	
 	private TechStackResource convertToResource(@NotNull TechStackEntity entity) {
 		
 		TechStackResource techStackResource = new TechStackResource();

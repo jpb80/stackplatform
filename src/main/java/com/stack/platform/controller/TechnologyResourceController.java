@@ -17,21 +17,33 @@ public class TechnologyResourceController extends ResourceRepositoryBase<Technol
 	@Autowired
 	ITechnologyService techService;
 	
+	
 	public TechnologyResourceController() {
 		super(TechnologyResource.class);
 	}
-
+	
 	@Override
-	@HystrixCommand(groupKey="Technology", commandKey="FindAllTech",  threadPoolKey="FindAllTech")
+	@HystrixCommand(groupKey="TechnologyFindALl", commandKey="Technology",  threadPoolKey="Technology")
 	public ResourceList<TechnologyResource> findAll(QuerySpec querySpec) {
 		return querySpec.apply(techService.findAll());
 	}
+		
+	@Override
+	@HystrixCommand(groupKey="TechnologyFindOne", commandKey="Technology",  threadPoolKey="Technology")
+	public TechnologyResource findOne(Long id, QuerySpec querySpec) {
+		return techService.findOne(id);
+	}	
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@HystrixCommand(groupKey="Technology", commandKey="FindAllTech",  threadPoolKey="FindAllTech")
+	@HystrixCommand(groupKey="TechnologySave", commandKey="Technology",  threadPoolKey="Technology")
 	public <S extends TechnologyResource> S save(S resource) {
 		return (S) techService.save(resource);
 	}
-
+	
+	@Override
+	@HystrixCommand(groupKey="TechnologyDelete", commandKey="Technology",  threadPoolKey="Technology")
+	public void delete(Long id) {
+		techService.delete(id);
+	}
 }

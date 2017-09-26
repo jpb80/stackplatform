@@ -90,6 +90,24 @@ public class UserProfileService implements IUserProfileService {
 		return convertToResource(userRepo.save(entity));
 	}
 	
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		
+		if (id == null || id >= Long.MAX_VALUE || id < 0L) {
+			log.error("Invalid id");
+			throw new InvalidArgumentException("Unable to process request");
+		}
+		
+		UserProfileEntity entity = userRepo.findOne(id);
+		if (entity == null) {
+			log.error("UserProfile does not exist for id={}", id);
+			throw new InvalidArgumentException("Unable to process request");
+		}		
+		entity.setDeleted(new Date());
+		userRepo.save(entity);
+	}
+	
 	private UserProfileResource convertToResource(UserProfileEntity entity) {
 		return new UserProfileResource(entity);
 	}
@@ -125,6 +143,4 @@ public class UserProfileService implements IUserProfileService {
 			throw new InvalidArgumentException("Unable to process request");
 		}
 	}
-
-
 }

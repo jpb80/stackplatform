@@ -1,6 +1,8 @@
 package com.stack.platform.services.impl;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
@@ -16,15 +18,15 @@ import com.stack.platform.services.IRoleService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service(value = "RoleService")
+@Slf4j
 public class RoleService implements IRoleService {
 
 	@Autowired
 	IRoleRepository roleRepo;
 	
 	@Override
-	@Transactional(rollbackOn=InvalidArgumentException.class)
+	@Transactional
 	public RoleResource addRole(@NotNull RoleResource roleResource) throws InvalidArgumentException {
 				
 		if (roleResource == null) {
@@ -68,6 +70,19 @@ public class RoleService implements IRoleService {
 
 		return convertToResource(roleRepo.save(role));
 		
+	}
+	
+	@Override
+	@Transactional
+	public Iterable<RoleResource> findAll() {
+		
+		Iterable<Role> roles = roleRepo.findAll();
+		Collection<RoleResource> roleResources = new HashSet<RoleResource>();
+		for (Role entity : roles) {
+			RoleResource roleResource = convertToResource(entity);
+			roleResources.add(roleResource);
+		}
+		return roleResources;
 	}
 	
 	@Override
@@ -116,4 +131,5 @@ public class RoleService implements IRoleService {
 		roleResouce.setModified(role.getModified());
 		return roleResouce;
 	}
+
 }
